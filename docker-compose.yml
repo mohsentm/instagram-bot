@@ -1,0 +1,32 @@
+version: '2.0'
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+#      - redis
+    volumes:
+      - ./:/var/www/html
+#      - .env.example:/var/www/html/.env
+    env_file:
+      - .env.example
+  db:
+    image: mysql:5.7
+    env_file:
+      - .env.example
+#  redis:
+#    image: redis:4.0.5-alpine
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    ports:
+#      - "8583:80"
+#    depends_on:
+#      - db
+#  front:
+#    image: mohsentm/csms-front:latest
+#    volumes:
+#      - .env.example:/usr/src/app/.env
+#    ports:
+#      - "3000:3000"
