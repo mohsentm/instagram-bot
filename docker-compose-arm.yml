@@ -1,9 +1,8 @@
-version: '3.0'
+version: '2.0'
 services:
   web:
-    container_name: instabot
-    build: ./
-
+    container_name: arm-instabot
+    build: ./Dockerfile-arm
     ports:
       - "8080:80"
     depends_on:
@@ -15,12 +14,8 @@ services:
     env_file:
       - .env.example
   db:
-#    container_name: instabot-db
-    image: mysql:8.0
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    ports:
-      - "3306:3306"
+#    container_name: arm-instabot-db
+    image: hypriot/rpi-mysql
     env_file:
       - .env.example
 #  redis:
