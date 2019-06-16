@@ -15,12 +15,14 @@ use Illuminate\Http\Request;
 Route::post('login', 'Auth\LoginController@login');
 Route::post('register', 'Auth\RegisterController@register');
 
-Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('details', 'API\UserController@details');
+Route::group(['middleware' => 'auth:api','namespace'=>'API'], function () {
+    Route::post('details', 'UserController@details');
 
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+
+    Route::resource('instagram','Instagram\InstagramController');
 });
 
 
