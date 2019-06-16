@@ -14,8 +14,6 @@ class CreateInstagramAccountTable extends Migration
     public function up()
     {
         Schema::create('instagram_account', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
-
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->string('username')->unique();
