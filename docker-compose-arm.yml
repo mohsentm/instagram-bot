@@ -1,8 +1,11 @@
 version: '2.0'
 services:
   web:
+    image: arm-instabot
     container_name: arm-instabot
-    build: ./Dockerfile-arm
+    build:
+#      context: ./virtualocpp/
+      dockerfile: Dockerfile-arm
     ports:
       - "8080:80"
     depends_on:
