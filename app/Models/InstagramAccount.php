@@ -10,5 +10,5 @@ class InstagramAccount extends Model
     use SoftDeletes;
 
     protected $table = 'instagram_accounts';
-    
+
 }
