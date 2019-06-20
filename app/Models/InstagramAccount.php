@@ -9,9 +9,6 @@ class InstagramAccount extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'instagram_account';
-
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
+    protected $table = 'instagram_accounts';
+    
 }
