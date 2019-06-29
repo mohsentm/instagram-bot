@@ -3,36 +3,44 @@
 namespace App\Http\Controllers\API\Instagram;
 
 use App\Http\Requests\Instagram\RegisterInstagramAccount;
+use App\Services\ControllersService\InstagramService;
+use App\Services\Instagram\AccountManager;
+use App\Tools\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class InstagramController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    private $instagramService;
+
+    public function __construct(InstagramService $instagramService)
     {
-        return 'ok';
+        $this->instagramService = $instagramService;
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  RegisterInstagramAccount  $request
-     * @return \Illuminate\Http\Response
+     * @param AccountManager $accountManager
+     * @return mixed
+     */
+    public function index(AccountManager $accountManager)
+    {
+        return $accountManager->run();
+    }
+
+    /**
+     * @param RegisterInstagramAccount $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(RegisterInstagramAccount $request)
     {
-        //
+        return JsonResponse::successObject($this->instagramService
+            ->register($request->input('username'),$request->input('password')));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -43,7 +51,7 @@ class InstagramController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -54,8 +62,8 @@ class InstagramController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -66,7 +74,7 @@ class InstagramController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
