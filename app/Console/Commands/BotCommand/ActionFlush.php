@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\BotCommand;
 
+use App\Exceptions\InstagramException\InvalidInstagramActionType;
 use App\Repositories\InstagramRepositories\InstagramActionRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -13,14 +14,14 @@ class ActionFlush extends Command
      *
      * @var string
      */
-    protected $signature = 'bot:flush';
+    protected $signature = 'bot:flush {--id=} {--action=}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = ' Flush all of the actions';
+    protected $description = '';
 
     /** @var InstagramActionRepository  */
     private $actionRepository;
@@ -31,16 +32,31 @@ class ActionFlush extends Command
      */
     public function __construct(InstagramActionRepository $actionRepository)
     {
-        parent::__construct();
         $this->actionRepository = $actionRepository;
+        $this->description = 'Flush all of the actions| filters: --id = Instagram account Id, --action = ['.
+            implode(', ', InstagramActionRepository::ACTION_LIST).']';
+
+        parent::__construct();
     }
 
     /**
-     * @throws \Exception
+     * @throws InvalidInstagramActionType
      */
-    public function handle()
+    public function handle(): void
     {
-        $this->actionRepository->flushActions();
+        $filter = [];
+
+        if($this->option('id')) {
+            $filter['account_id'] = $this->option('id');
+        }
+
+        if ($this->option('action')) {
+            if (!in_array(strtoupper($this->option('action')), InstagramActionRepository::ACTION_LIST, true)) {
+             throw new InvalidInstagramActionType();
+            }
+                $filter['action_type'] = strtoupper($this->option('action'));
+        }
+        $this->actionRepository->flushActions($filter);
         $this->comment('<fg=green>Flushed the all actions</>');
         Log::info('Flushed the all actions by command');
     }

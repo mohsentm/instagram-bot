@@ -56,8 +56,12 @@ class InstagramActionRepository extends BaseRepository
     /**
      * Flush the table
      */
-    public function flushActions(): void
+    public function flushActions(array $filter = []): void
     {
-        $this->query->truncate();
+        if(empty($filter)) {
+            $this->query->truncate();
+        } else {
+            $this->query->where($filter)->delete();
+        }
     }
 }
