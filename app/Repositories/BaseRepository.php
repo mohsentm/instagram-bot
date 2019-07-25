@@ -164,11 +164,11 @@ abstract class BaseRepository implements RepositoryContract
     {
         return $this->query = $this->makeModel()->newQuery();
     }
+
     /**
-     * Make model
-     *
      * @return mixed
-     * @throws App\Exceptions\RepositoryException
+     * @throws RepositoryException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function makeModel()
     {

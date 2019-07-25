@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Instagram;
 
 use App\Http\Requests\BaseFormRequest;
+use App\Rules\InstagramRule\InstagramAccountStatusCheck;
 
 class RegisterInstagramAccount extends BaseFormRequest
 {
@@ -24,8 +25,9 @@ class RegisterInstagramAccount extends BaseFormRequest
     public function rules()
     {
         return [
-            'username'=>['required', 'string', 'max:255', 'unique:instagram_accounts'],
-            'password'=>['required', 'string', 'min:8', 'confirmed']
+            'username' => ['required', 'string', 'max:255', 'unique:instagram_accounts'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'status' => ['string', new InstagramAccountStatusCheck()]
         ];
     }
 }

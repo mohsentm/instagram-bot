@@ -1,38 +1,45 @@
 <?php
 
-
 namespace App\Services\Instagram;
 
-use App\Repositories\InstagramAccountRepository;
-use App\Tools\AccountPassCrypt;
+use App\Models\InstagramAccount;
+use App\Repositories\InstagramRepositories\InstagramAccountRepository;
+use App\Repositories\InstagramRepositories\InstagramActionRepository;
+use Illuminate\Support\Facades\Log;
 
 class AccountManager
 {
-
     private $accountRepository;
+    private $actionRepository;
 
-    public function __construct(InstagramAccountRepository $accountRepository)
+    public function __construct(
+        InstagramAccountRepository $accountRepository,
+    InstagramActionRepository $actionRepository
+    )
     {
         $this->accountRepository = $accountRepository;
+        $this->actionRepository = $actionRepository;
     }
 
-
-    public function run()
+    public function getAccountWithoutAction()
     {
-        $account = $this->getAccounts();
-
-        return $account;
+        return $this->accountRepository->getAccountWithoutAction();
     }
 
+    /**
+     * @param InstagramAccount $instagramAccount
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     * @throws \App\Exceptions\InstagramException\InvalidInstagramActionType
+     */
+    public function setTimelineAction(InstagramAccount $instagramAccount)
+    {
+        $result = $this->actionRepository->setAction(
+            $instagramAccount,
+            InstagramActionRepository::ACTION_TIMELINE
+        );
 
-    private function getAccounts() {
-        $account = $this->accountRepository->makeModel()->select('username',
-            'password')->where(['status' => 'ENABLE'])->get()->makeVisible(['password']);
+        Log::info('Set the '.InstagramActionRepository::ACTION_TIMELINE.' action for '.$instagramAccount->username);
 
-        $account = $account->map(static function($item) {
-            $item->password = AccountPassCrypt::decrypt($item->password, $item->username);
-            return $item;
-        });
-        return $account;
+        return $result;
     }
 }

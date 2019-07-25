@@ -4,7 +4,7 @@
 namespace App\Services\ControllersService;
 
 
-use App\Repositories\InstagramAccountRepository;
+use App\Repositories\InstagramRepositories\InstagramAccountRepository;
 use App\Tools\AccountPassCrypt;
 
 class InstagramService
@@ -16,11 +16,12 @@ class InstagramService
         $this->accountRepository = $accountRepository;
     }
 
-    public function register($username,$password){
-        return $this->accountRepository->create([
-            'username'=>$username,
-            'password'=> AccountPassCrypt::encrypt($password,$username)
-        ]);
+    public function register($data){
+        return $this->accountRepository->createAccount(
+            $data['username'],
+            $data['password'],
+            $data['status'] ?? InstagramAccountRepository::DEFAULT_STATUS
+        );
     }
 
 }

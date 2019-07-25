@@ -24,7 +24,6 @@ class InstagramController extends Controller
      */
     public function index(AccountManager $accountManager)
     {
-        return $accountManager->run();
     }
 
     /**
@@ -33,8 +32,7 @@ class InstagramController extends Controller
      */
     public function store(RegisterInstagramAccount $request)
     {
-        return JsonResponse::successObject($this->instagramService
-            ->register($request->input('username'),$request->input('password')));
+        return JsonResponse::successObject($this->instagramService->register($request->all()));
     }
 
     /**
