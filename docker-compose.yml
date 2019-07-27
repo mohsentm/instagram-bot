@@ -1,7 +1,9 @@
-version: '2.0'
+version: '3.0'
 services:
   web:
-    build: .
+    container_name: instabot
+    build: ./
+
     ports:
       - "8080:80"
     depends_on:
@@ -13,7 +15,12 @@ services:
     env_file:
       - .env.example
   db:
-    image: mysql:5.7
+#    container_name: instabot-db
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3306:3306"
     env_file:
       - .env.example
 #  redis:

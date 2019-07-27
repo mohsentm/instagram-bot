@@ -7,9 +7,9 @@ LABEL description="Instagram bot 1.0.0"
 ENV INSTALL_DIR /var/www/html
 ENV COMPOSER_HOME /var/www/.composer/
 
-ADD ./php.ini /etc/php7/php.ini
+ADD ./docker/x86-64/php.ini /etc/php7/php.ini
 
-ADD ./nginx.conf /etc/nginx/conf.d/default.conf
+ADD ./docker/x86-64/nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN apk add --update \
    ffmpeg \
