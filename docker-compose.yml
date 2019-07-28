@@ -23,8 +23,8 @@ services:
       - "3306:3306"
     env_file:
       - .env.example
-#  redis:
-#    image: redis:4.0.5-alpine
+  redis:
+    image: redis:5.0.5-alpine
 #  phpmyadmin:
 #    image: phpmyadmin/phpmyadmin
 #    ports:
