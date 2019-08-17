@@ -31,7 +31,7 @@ class UpdateTimeLineJob implements ShouldQueue
      */
     public function handle(AccountManager $accountManager): void
     {
-        Log::info('update time line: username: '.$this->actionEvent->instagramAccount->username
+        Log::debug('Update time line: username: '.$this->actionEvent->instagramAccount->username
         .' action type: '.$this->actionEvent->action->action_type);
         $accountManager->updateTimeLineAction($this->actionEvent->instagramAccount, $this->actionEvent->action);
     }

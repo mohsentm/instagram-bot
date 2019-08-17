@@ -41,9 +41,10 @@ class AccountManager
             $instagramAccount,
             InstagramActionRepository::ACTION_TIMELINE
         );
+
         event(new SetTimeLineActionEvent($instagramAccount, $action));
 
-        Log::info('Set the ' . InstagramActionRepository::ACTION_TIMELINE . ' action for ' . $instagramAccount->username);
+        Log::debug('Set the ' . InstagramActionRepository::ACTION_TIMELINE . ' action for ' . $instagramAccount->username);
     }
 
     /**
@@ -52,6 +53,7 @@ class AccountManager
      */
     public function updateTimeLineAction(InstagramAccount $instagramAccount, InstagramAction $action): void
     {
+        $this->serverApi->
         $this->actionRepository->doneAction($action);
         Log::info('time line updated username: '. $instagramAccount->username);
     }

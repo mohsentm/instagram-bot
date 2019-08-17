@@ -17,6 +17,6 @@ class SetUpdateTimeLineJob
     public function handle(SetTimeLineActionEvent $actionEvent): void
     {
         UpdateTimeLineJob::dispatch($actionEvent);
-        Log::info('catch the event',(array)$actionEvent->instagramAccount);
+        Log::debug('catch the event',(array)$actionEvent->instagramAccount);
     }
 }
