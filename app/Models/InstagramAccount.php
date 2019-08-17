@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class InstagramAccount
  * @package App\Models
- * @property BigInteger $id
+ * @property integer $id
  * @property string $username
  * @property string $password
  * @property string $status
- * @property-read Collection|InstagramAction[] $actions
+ * @property-read InstagramAction[] $actions
  */
 class InstagramAccount extends Model
 {
