@@ -8,6 +8,7 @@ use App\Services\Instagram\AccountManager;
 use App\Tools\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class InstagramController extends Controller
 {
@@ -32,7 +33,10 @@ class InstagramController extends Controller
      */
     public function store(RegisterInstagramAccount $request)
     {
-        return JsonResponse::successObject($this->instagramService->register($request->all()));
+        return JsonResponse::successObject(
+            $this->instagramService->register($request->all()),
+            Response::HTTP_CREATED
+        );
     }
 
     /**
