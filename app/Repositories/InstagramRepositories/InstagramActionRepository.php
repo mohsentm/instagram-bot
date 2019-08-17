@@ -53,6 +53,12 @@ class InstagramActionRepository extends BaseRepository
         ]);
     }
 
+    public function doneAction(InstagramAction $action): void
+    {
+        $action->status = self::STATUS_DONE;
+        $action->save();
+    }
+
     /**
      * Flush the table
      */

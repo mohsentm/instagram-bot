@@ -9,6 +9,10 @@ use App\Tools\AccountPassCrypt;
 /**
  * Class InstagramAccountRepository
  * @package App\Repositories\InstagramRepositories
+ * @property integer $id
+ * @property string $username
+ * @property string $password
+ * @property string $status
  */
 class InstagramAccountRepository extends BaseRepository
 {
@@ -27,6 +31,11 @@ class InstagramAccountRepository extends BaseRepository
     public function model()
     {
         return InstagramAccount::class;
+    }
+
+    public function getUserPassword(InstagramAccount $instagramAccount): string
+    {
+        return AccountPassCrypt::decrypt((string)$instagramAccount->password, (string)$instagramAccount->username);
     }
 
     public function createAccount(string $username, string $password, string $status = self::DEFAULT_STATUS)
