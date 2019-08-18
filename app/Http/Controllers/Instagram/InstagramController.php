@@ -4,10 +4,11 @@ namespace App\Http\Controllers\API\Instagram;
 
 use App\Http\Requests\Instagram\RegisterInstagramAccount;
 use App\Services\ControllersService\InstagramService;
-use App\Services\Instagram\AccountManager;
+use App\Services\Instagram\ActionsService;
 use App\Tools\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class InstagramController extends Controller
 {
@@ -19,10 +20,10 @@ class InstagramController extends Controller
     }
 
     /**
-     * @param AccountManager $accountManager
+     * @param ActionsService $accountManager
      * @return mixed
      */
-    public function index(AccountManager $accountManager)
+    public function index(ActionsService $accountManager)
     {
     }
 
@@ -32,7 +33,10 @@ class InstagramController extends Controller
      */
     public function store(RegisterInstagramAccount $request)
     {
-        return JsonResponse::successObject($this->instagramService->register($request->all()));
+        return JsonResponse::successObject(
+            $this->instagramService->register($request->all()),
+            Response::HTTP_CREATED
+        );
     }
 
     /**

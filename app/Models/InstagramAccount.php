@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class InstagramAccount
  * @package App\Models
- * @property BigInteger $id
+ * @property integer $id
  * @property string $username
  * @property string $password
  * @property string $status
- * @property-read Collection|InstagramAction[] $actions
+ * @property-read InstagramAction[] $actions
  */
 class InstagramAccount extends Model
 {
@@ -33,9 +34,8 @@ class InstagramAccount extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function actions()
+    public function actions(): HasMany
     {
         return $this->hasMany(InstagramAction::class, 'account_id');
     }
-
 }

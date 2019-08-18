@@ -3,17 +3,16 @@ services:
   web:
     container_name: instabot
     build: ./
-
     ports:
       - "8080:80"
     depends_on:
       - db
-#      - redis
+      - redis
     volumes:
       - ./:/var/www/html
 #      - .env.example:/var/www/html/.env
-    env_file:
-      - .env.example
+#    env_file:
+#      - .env.example
   db:
 #    container_name: instabot-db
     image: mysql:8.0
