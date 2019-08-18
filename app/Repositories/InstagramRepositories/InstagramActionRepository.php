@@ -60,7 +60,7 @@ class InstagramActionRepository extends BaseRepository
     }
 
     /**
-     * Flush the table
+     * @param array $filter
      */
     public function flushActions(array $filter = []): void
     {
