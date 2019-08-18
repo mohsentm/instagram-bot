@@ -11,7 +11,7 @@ use InstagramAPI\Response\GenericResponse;
  */
 class Media extends BaseApi
 {
-    public function like(int $mediaId): GenericResponse
+    public function like(string $mediaId): GenericResponse
     {
         return $this->api->media->like($mediaId);
     }
