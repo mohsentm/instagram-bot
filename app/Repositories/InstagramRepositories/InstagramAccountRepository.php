@@ -5,6 +5,7 @@ namespace App\Repositories\InstagramRepositories;
 use App\Models\InstagramAccount;
 use App\Repositories\BaseRepository;
 use App\Tools\AccountPassCrypt;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class InstagramAccountRepository
@@ -49,7 +50,7 @@ class InstagramAccountRepository extends BaseRepository
 
     public function getAccounts($withPassword = false)
     {
-        $result = $this->query->where(['status' => 'ENABLE'])->get();
+        $result = $this->query->where(['status' => self::STATUS_ENABLE])->get();
         if ($withPassword) {
             $result = $result->makeVisible(['password'])->map(static function ($item) {
                 $item->password = AccountPassCrypt::decrypt($item->password, $item->username);
@@ -61,7 +62,8 @@ class InstagramAccountRepository extends BaseRepository
 
     public function getAccountWithoutAction()
     {
-        return $this->query->doesntHave('actions')
-            ->where(['status' => 'ENABLE'])->get();
+        return $this->query->whereDoesntHave('actions', static function (Builder $query) {
+            $query->where(['status' => InstagramActionRepository::STATUS_PENDING]);
+        })->where(['status' => self::STATUS_ENABLE])->get();
     }
 }

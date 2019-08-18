@@ -2,19 +2,18 @@
 
 namespace App\Services\Instagram\ServerAPI\Actions;
 
-use App\Services\Instagram\ServerAPI\InstagramServerApi;
-
-class Timeline implements ActionInterface
+use InstagramAPI\Response\TimelineFeedResponse;
+/**
+ * Class Timeline
+ * @package App\Services\Instagram\ServerAPI\Actions
+ */
+class Timeline extends BaseApi
 {
-    private $parent;
-
-    public function __construct(InstagramServerApi $parent)
+    /**
+     * @return TimelineFeedResponse
+     */
+    public function getTimelineFeed(): TimelineFeedResponse
     {
-        $this->parent = $parent;
-    }
-
-    public function getFeed()
-    {
-        return $this->parent->api->getTimelineFeed()->getFeedItems();
+        return $this->api->timeline->getTimelineFeed();
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  * @property integer $id
  * @property integer $account_id
- * @property integer $action_id
+ * @property string $action_id
  * @property string $action_type
  * @property string $status
  * @property-read InstagramAccount $account
