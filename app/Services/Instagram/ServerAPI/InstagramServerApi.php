@@ -2,44 +2,29 @@
 
 namespace App\Services\Instagram\ServerAPI;
 
+use App\Services\Instagram\Actions\Media;
 use App\Services\Instagram\ServerAPI\Actions\Timeline;
-use InstagramAPI\Instagram as API;
 
 /**
  * Class InstagramServerApi
  * @package App\Services\Instagram\ServerAPI
- * @property-read $timeline
+ * @property-read Timeline $timeline
+ * @property-read Media $media
  */
 class InstagramServerApi
 {
-    public $api;
-
+    /** @var Timeline  */
     public $timeline;
 
-    public function __construct(API $api)
-    {
-        $this->api = $api;
+    /** @var Media  */
+    public $media;
 
-        $this->timeline = new Timeline($this);
-    }
-
-    public function getUsername()
+    public function __construct(
+        Timeline $timeline,
+        Media $media
+    )
     {
-        return $this->api->username;
-    }
-
-    /**
-     * @param string $username
-     * @param string $password
-     * @return $this
-     */
-    public function login(string $username, string $password)
-    {
-        return $this->api->login($username, $password);
-    }
-
-    public function getFeed()
-    {
-        return $this->api->timeline->getTimelineFeed()->getFeedItems();
+        $this->timeline = $timeline;
+        $this->media = $media;
     }
 }

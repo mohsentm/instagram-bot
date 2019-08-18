@@ -3,29 +3,23 @@
 namespace App\Events\InstagramActionsEvents;
 
 use App\Models\InstagramAccount;
-use App\Models\InstagramAction;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 
-class SetTimeLineActionEvent
+class LikeActionEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /** @var InstagramAccount  */
     public $instagramAccount;
 
-    /** @var InstagramAction  */
-    public $action;
-
     /**
-     * setTimeLineActionEvent constructor.
+     * LikeActionEvent constructor.
      * @param InstagramAccount $instagramAccount
-     * @param InstagramAction $action
      */
-    public function __construct(InstagramAccount $instagramAccount, InstagramAction $action)
+    public function  __construct(InstagramAccount $instagramAccount)
     {
         $this->instagramAccount = $instagramAccount;
-        $this->action = $action;
     }
 }

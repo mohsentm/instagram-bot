@@ -36,11 +36,11 @@ class InstagramActionRepository extends BaseRepository
     /**
      * @param InstagramAccount $account
      * @param string $actionType
-     * @param int $actionId
+     * @param string $actionId
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
      * @throws InvalidInstagramActionType
      */
-    public function setAction(InstagramAccount $account, string $actionType, int $actionId = 0)
+    public function setAction(InstagramAccount $account, string $actionType, string $actionId = '')
     {
         if (!in_array($actionType, self::ACTION_LIST, true)) {
             throw new InvalidInstagramActionType();
@@ -64,10 +64,52 @@ class InstagramActionRepository extends BaseRepository
      */
     public function flushActions(array $filter = []): void
     {
-        if(empty($filter)) {
+        if (empty($filter)) {
             $this->query->truncate();
         } else {
             $this->query->where($filter)->delete();
         }
+    }
+
+    public function likeActionDoesntExist(InstagramAccount $instagramAccount): bool
+    {
+        return $this->actionDoesntExist($instagramAccount, self::ACTION_LIKE);
+    }
+
+    public function likeActionExists(InstagramAccount $instagramAccount): bool
+    {
+        return $this->actionExist($instagramAccount, self::ACTION_LIKE);
+    }
+
+    public function getLikeAction(InstagramAccount $instagramAccount)
+    {
+        return $this->getAction($instagramAccount, self::ACTION_LIKE);
+    }
+
+    private function actionDoesntExist(InstagramAccount $instagramAccount, string $actionType): bool
+    {
+        return $this->query->where([
+            'account_id' => $instagramAccount->id,
+            'action_type' => $actionType,
+            'status' => self::STATUS_PENDING
+        ])->doesntExist();
+    }
+
+    private function actionExist(InstagramAccount $instagramAccount, string $actionType): bool
+    {
+        return $this->query->where([
+            'account_id' => $instagramAccount->id,
+            'action_type' => $actionType,
+            'status' => self::STATUS_PENDING
+        ])->exists();
+    }
+
+    private function getAction(InstagramAccount $instagramAccount, string $actionType)
+    {
+        return $this->query->where([
+            'account_id' => $instagramAccount->id,
+            'action_type' => $actionType,
+            'status' => self::STATUS_PENDING
+        ])->first();
     }
 }
