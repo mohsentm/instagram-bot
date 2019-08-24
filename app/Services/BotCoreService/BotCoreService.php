@@ -2,6 +2,7 @@
 
 namespace App\Services\BotCoreService;
 
+use App\Events\BotCoreEvents\BotWakeupEvent;
 use App\Events\BotCoreEvents\TimelineFeedResponseEvent;
 use App\Events\InstagramActionsEvents\LikeActionEvent;
 use App\Models\InstagramAccount;
@@ -32,7 +33,7 @@ class BotCoreService
     }
 
     /**
-     * @throws \App\Exceptions\InstagramException\InvalidInstagramActionType
+     * Set wakeup event for all enable accounts
      */
     public function wakeUp(): void
     {
@@ -45,7 +46,7 @@ class BotCoreService
         Log::debug('Count of account '. count($accounts));
 
         foreach ($accounts as $account) {
-            $this->actionsService->timeline->setTimelineAction($account);
+            event(new BotWakeupEvent($account));
         }
     }
 
