@@ -19,6 +19,7 @@ class CreateInstagramActionTable extends Migration
             $table->string('action_id');
             $table->string('action_type');
             $table->enum('status', ['PENDING', 'DONE']);
+            $table->json('attribute');
             $table->timestamps();
 
             $table->foreign('account_id')
