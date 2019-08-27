@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\BotCoreListener;
+namespace App\Listeners\BotCoreListener\TimelineFeedResponseListeners;
 
 use App\Events\BotCoreEvents\TimelineFeedResponseEvent;
 use App\Services\BotCoreService\BotCoreService;

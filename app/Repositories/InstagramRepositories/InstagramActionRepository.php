@@ -19,12 +19,21 @@ class InstagramActionRepository extends BaseRepository
     public const ACTION_TIMELINE = 'TIMELINE';
     public const ACTION_LIKE = 'LIKE';
     public const ACTION_COMMENT = 'COMMENT';
+
+    public const ACTION_STORY = 'STORY';
+    public const ACTION_SEE_STORY = 'SEE_STORY';
+
     public const ACTION_LIST = [
         self::ACTION_TIMELINE,
         self::ACTION_LIKE,
-        self::ACTION_COMMENT
+        self::ACTION_COMMENT,
+        self::ACTION_COMMENT,
+        self::ACTION_STORY,
+        self::ACTION_SEE_STORY
     ];
 
+
+    public const DEFAULT_STORY_SEE_COUNT = 5;
     /**
      * @return mixed|string
      */
@@ -81,9 +90,26 @@ class InstagramActionRepository extends BaseRepository
         return $this->actionExist($instagramAccount, self::ACTION_LIKE);
     }
 
-    public function getLikeAction(InstagramAccount $instagramAccount)
+    public function getLikeAction(InstagramAccount $instagramAccount): InstagramAction
     {
-        return $this->getAction($instagramAccount, self::ACTION_LIKE);
+        return $this->getAction($instagramAccount, self::ACTION_LIKE)->first();
+    }
+
+    public function seeStoryActionDoesntExist(InstagramAccount $instagramAccount): bool
+    {
+        return $this->actionDoesntExist($instagramAccount, self::ACTION_SEE_STORY);
+    }
+
+    public function seeStoryActionExists(InstagramAccount $instagramAccount): bool
+    {
+        return $this->actionExist($instagramAccount, self::ACTION_SEE_STORY);
+    }
+
+    public function getSeeStoryAction(InstagramAccount $instagramAccount): array
+    {
+        return $this->getAction($instagramAccount, self::ACTION_SEE_STORY)
+            ->get()
+            ->chunk(self::DEFAULT_STORY_SEE_COUNT);
     }
 
     private function actionDoesntExist(InstagramAccount $instagramAccount, string $actionType): bool
@@ -110,6 +136,6 @@ class InstagramActionRepository extends BaseRepository
             'account_id' => $instagramAccount->id,
             'action_type' => $actionType,
             'status' => self::STATUS_PENDING
-        ])->first();
+        ]);
     }
 }

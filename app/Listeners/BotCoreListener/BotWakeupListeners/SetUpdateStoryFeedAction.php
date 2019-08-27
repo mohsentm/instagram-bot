@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Listeners\BotCoreListener;
+namespace App\Listeners\BotCoreListener\BotWakeupListeners;
 
 use App\Events\BotCoreEvents\BotWakeupEvent;
+use App\Exceptions\InstagramException\InvalidInstagramActionType;
 use App\Services\Instagram\ActionsService;
 
-class SetUpdateTimelineAction
+class SetUpdateStoryFeedAction
 {
     private $accountService;
 
@@ -20,10 +21,10 @@ class SetUpdateTimelineAction
 
     /**
      * @param BotWakeupEvent $botWakeupEvent
-     * @throws \App\Exceptions\InstagramException\InvalidInstagramActionType
+     * @throws InvalidInstagramActionType
      */
     public function handle(BotWakeupEvent $botWakeupEvent): void
     {
-        $this->accountService->timeline->setTimelineAction($botWakeupEvent->instagramAccount);
+        $this->accountService->story->setStoryAction($botWakeupEvent->instagramAccount);
     }
 }

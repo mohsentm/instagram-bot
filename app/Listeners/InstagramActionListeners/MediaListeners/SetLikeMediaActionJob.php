@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Listeners\InstagramActionListeners;
+namespace App\Listeners\InstagramActionListeners\MediaListeners;
 
 use App\Events\InstagramActionsEvents\LikeActionEvent;
 use App\Jobs\InstagramActionJob\LikeActionJob;

@@ -59,8 +59,6 @@ class MediaService extends BaseService
             $this->accountRepository->getUserPassword($instagramAccount)
         )->like($action->action_id);
 
-        $this->actionRepository->doneAction($action);
-
         Log::debug('Like media response status ' . $response->getStatus());
         return $response->getStatus();
     }
