@@ -14,6 +14,19 @@ services:
       - redis
     volumes:
       - ./core:/var/www/html
+  panel:
+    container_name: instabotpanel
+    build:
+      context: ./panel
+      dockerfile: docker/x86-64/Dockerfile
+    command: /bin/sh docker/start.sh
+    tty: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - web
+    volumes:
+      - ./panel:/usr/src/app
   db:
     container_name: instabot-db
     image: mysql:8.0
