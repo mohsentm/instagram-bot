@@ -1,38 +1,40 @@
-version: '3.0'
+version: '3.7'
 services:
   web:
     container_name: instabot
-    build: ./
+    build:
+      context: ./core
+      dockerfile: docker/x86-64/Dockerfile
+    command: /bin/bash docker/start.sh
+    tty: true
     ports:
       - "8080:80"
     depends_on:
       - db
       - redis
     volumes:
-      - ./:/var/www/html
-#      - .env.example:/var/www/html/.env
-#    env_file:
-#      - .env.example
+      - ./core:/var/www/html
+  panel:
+    container_name: instabotpanel
+    build:
+      context: ./panel
+      dockerfile: docker/x86-64/Dockerfile
+    command: /bin/sh docker/start.sh
+    tty: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - web
+    volumes:
+      - ./panel:/usr/src/app
   db:
-#    container_name: instabot-db
+    container_name: instabot-db
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
       - "3306:3306"
     env_file:
-      - .env.example
+      - ./core/.env.example
   redis:
     image: redis:5.0.5-alpine
-#  phpmyadmin:
-#    image: phpmyadmin/phpmyadmin
-#    ports:
-#      - "8583:80"
-#    depends_on:
-#      - db
-#  front:
-#    image: mohsentm/csms-front:latest
-#    volumes:
-#      - .env.example:/usr/src/app/.env
-#    ports:
-#      - "3000:3000"
