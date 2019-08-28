@@ -53,32 +53,23 @@ RUN apk add \
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
-ADD nginx.conf /etc/nginx/
-ADD php-fpm.conf /etc/php7/
-ADD default.conf /etc/nginx/conf.d/
-ADD run.sh /
+ADD ./docker/arm/dockernginx.conf /etc/nginx/
+ADD ./docker/arm/php-fpm.conf /etc/php7/
+ADD ./docker/arm/default.conf /etc/nginx/conf.d/
+ADD ./docker/arm/run.sh /
 RUN chmod +x /run.sh
 
 EXPOSE 80
 
-#WORKDIR /var/www/html
-#VOLUME ["/var/htdocs", "/var/logs"]
-
 CMD ["/run.sh"]
-
-#ADD ./php.ini /etc/php7/php.ini
-
-#ADD ./nginx.conf /etc/nginx/conf.d/default.conf
-
-#RUN chsh -s /bin/bash www-data
 
 ADD ./ $INSTALL_DIR
 COPY .env.example $INSTALL_DIR/.env
-#
+
 RUN cd $INSTALL_DIR && composer install && php artisan key:generate
-#
+
 RUN chown -R www-data:www-data /var/www
-#
+
 RUN cd $INSTALL_DIR \
     && find . -type d -exec chmod 770 {} \; \
     && find . -type f -exec chmod 660 {} \;

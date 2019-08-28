@@ -1,23 +1,21 @@
-version: '3.0'
+version: '3.7'
 services:
   web:
-#    image: arm-instabot
     container_name: arm-instabot
     build:
-      context: ./
-      dockerfile: DockerfileArm
+      context: ./core
+      dockerfile: docker/arm/Dockerfile
+    command: /bin/bash docker/start.sh
     ports:
       - "80:80"
     depends_on:
       - db
-#      - redis
+      - redis
     volumes:
       - ./:/var/www/html
-#      - .env.example:/var/www/html/.env
     env_file:
       - .env.example
   db:
-#    container_name: arm-instabot-db
     image: hypriot/rpi-mysql
     env_file:
       - .env.example
