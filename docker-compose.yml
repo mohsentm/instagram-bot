@@ -12,6 +12,7 @@ services:
     depends_on:
       - db
       - redis
+      - maildev
     volumes:
       - ./core:/var/www/html
   panel:
@@ -38,3 +39,9 @@ services:
       - ./core/.env.example
   redis:
     image: redis:5.0.5-alpine
+  maildev:
+    container_name: maildev
+    image: djfarrelly/maildev
+    ports:
+      - 1080:80
+      - 1025:25
