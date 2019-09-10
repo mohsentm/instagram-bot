@@ -2,26 +2,16 @@
 
 namespace App\Http\Requests\User;
 
-use App\Http\Requests\BaseFormRequest;
+use Virta\Api\Requests\BaseRequest;
 
-class UserRegisterRequest extends BaseFormRequest
+class UserRegisterRequest extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-//    public function authorize()
-//    {
-//        return false;
-//    }
-
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-    public function rules()
+    public function postRules(): array
     {
         return [
             'name' => ['required', 'string', 'max:255'],

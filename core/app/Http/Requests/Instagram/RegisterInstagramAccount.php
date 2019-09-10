@@ -2,27 +2,18 @@
 
 namespace App\Http\Requests\Instagram;
 
-use App\Http\Requests\BaseFormRequest;
 use App\Rules\InstagramRule\InstagramAccountStatusCheck;
+use Virta\Api\Requests\BaseRequest;
 
-class RegisterInstagramAccount extends BaseFormRequest
+class RegisterInstagramAccount extends BaseRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
 
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-    public function rules()
+    public function postRules(): array
     {
         return [
             'username' => ['required', 'string', 'max:255', 'unique:instagram_accounts'],
