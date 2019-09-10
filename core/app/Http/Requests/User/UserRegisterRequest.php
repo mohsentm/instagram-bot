@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\User;
 
-use Virta\Api\Requests\BaseRequest;
+use App\Http\Requests\BaseRequest;
 
 class UserRegisterRequest extends BaseRequest
 {
@@ -14,7 +14,7 @@ class UserRegisterRequest extends BaseRequest
     public function postRules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];

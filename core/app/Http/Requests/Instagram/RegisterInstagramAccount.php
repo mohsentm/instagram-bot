@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Instagram;
 
+use App\Http\Requests\BaseRequest;
 use App\Rules\InstagramRule\InstagramAccountStatusCheck;
-use Virta\Api\Requests\BaseRequest;
 
 class RegisterInstagramAccount extends BaseRequest
 {
