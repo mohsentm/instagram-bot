@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Instagram;
 
 use App\Http\Requests\Instagram\RegisterInstagramAccount;
-use App\Services\ControllersService\InstagramService;
+use App\Services\ControllersService\InstagramAccountService;
 use App\Services\Instagram\ActionsService;
 use App\Tools\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ class InstagramController extends Controller
 {
     private $instagramService;
 
-    public function __construct(InstagramService $instagramService)
+    public function __construct(InstagramAccountService $instagramService)
     {
         $this->instagramService = $instagramService;
     }

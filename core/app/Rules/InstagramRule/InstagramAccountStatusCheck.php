@@ -17,9 +17,7 @@ class InstagramAccountStatusCheck implements Rule
      */
     public function passes($attribute, $value): bool
     {
-        if (in_array(strtoupper($value), InstagramAccountRepository::STATUS_LIST, true)) {
-            return true;
-        }
+        return in_array(strtoupper($value), InstagramAccountRepository::STATUS_LIST, true);
     }
 
     /**
