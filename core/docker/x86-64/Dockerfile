@@ -28,4 +28,4 @@ WORKDIR $INSTALL_DIR
 # Add cron job
 ADD ./docker/crontab /etc/cron.d/bot-cron
 RUN chmod 0644 /etc/cron.d/bot-cron \
-    && crontab -u www-data /etc/cron.d/bot-cron
+    && crontab /etc/cron.d/bot-cron
