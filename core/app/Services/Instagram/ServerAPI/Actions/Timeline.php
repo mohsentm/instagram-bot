@@ -3,6 +3,7 @@
 namespace App\Services\Instagram\ServerAPI\Actions;
 
 use InstagramAPI\Response\TimelineFeedResponse;
+
 /**
  * Class Timeline
  * @package App\Services\Instagram\ServerAPI\Actions

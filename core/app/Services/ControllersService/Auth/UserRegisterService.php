@@ -9,15 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRegisterService
 {
-    /** @var string */
-    public const STATUS_ENABLE = 'ENABLE';
-    /** @var string */
-    public const STATUS_DISABLE = 'DISABLE';
-    /** @var array */
-    public const STATUS_LIST = [self::STATUS_ENABLE, self::STATUS_DISABLE];
-    /** @var string */
-    public const DEFAULT_STATUS = self::STATUS_DISABLE;
-
     private $userRepository;
 
     public function __construct(UserRepository $userRepository)
@@ -48,7 +39,7 @@ class UserRegisterService
             'name' => $data['name'] ?? null,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'status' => self::DEFAULT_STATUS,
+            'status' => UserRepository::DEFAULT_STATUS,
         ]);
     }
 }

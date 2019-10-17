@@ -4,9 +4,9 @@ namespace App\Events\InstagramActionsEvents;
 
 use App\Models\InstagramAccount;
 use App\Models\InstagramAction;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class TimeLineActionEvent
 {

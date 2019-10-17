@@ -7,6 +7,15 @@ use App\Repositories\BaseRepository;
 
 class UserRepository extends BaseRepository
 {
+    /** @var string */
+    public const STATUS_ENABLE = 'ENABLE';
+    /** @var string */
+    public const STATUS_DISABLE = 'DISABLE';
+    /** @var array */
+    public const STATUS_LIST = [self::STATUS_ENABLE, self::STATUS_DISABLE];
+    /** @var string */
+    public const DEFAULT_STATUS = self::STATUS_DISABLE;
+
     /**
      * The attributes that are mass assignable.
      *

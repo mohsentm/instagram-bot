@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API\Instagram;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Instagram\RegisterInstagramAccount;
 use App\Services\ControllersService\InstagramService;
 use App\Services\Instagram\ActionsService;
 use App\Tools\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 
 class InstagramController extends Controller

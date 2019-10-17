@@ -3,9 +3,9 @@
 namespace App\Events\BotCoreEvents;
 
 use App\Models\InstagramAccount;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 use InstagramAPI\Response\TimelineFeedResponse;
 
 class TimelineFeedResponseEvent
