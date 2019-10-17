@@ -7,7 +7,7 @@ namespace App\Services\ControllersService;
 use App\Repositories\InstagramRepositories\InstagramAccountRepository;
 use App\Tools\AccountPassCrypt;
 
-class InstagramService
+class InstagramAccountService
 {
     private $accountRepository;
 

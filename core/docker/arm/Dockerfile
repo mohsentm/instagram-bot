@@ -11,28 +11,28 @@ RUN set -x ; \
   addgroup -g 82 -S www-data ; \
   adduser -u 82 -D -S -G www-data www-data && exit 0 ; exit 1
 
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \ 
-    apk update && \ 
-    apk upgrade && \ 
-    apk add --update \ 
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
+    apk update && \
+    apk upgrade && \
+    apk add --update \
     php7 \
-    php7-mcrypt \ 
-    php7-soap \ 
-    php7-openssl \ 
-    php7-gmp \ 
-    php7-json \ 
-    php7-dom \ 
-    php7-pdo \ 
-    php7-zip \ 
-    php7-mysqli \ 
-    php7-bcmath \ 
-    php7-gd \ 
-    php7-pdo_mysql \ 
-    php7-gettext \ 
-    php7-xmlreader \ 
-    php7-xmlrpc \ 
-    php7-bz2 \ 
-    php7-iconv \ 
+    php7-mcrypt \
+    php7-soap \
+    php7-openssl \
+    php7-gmp \
+    php7-json \
+    php7-dom \
+    php7-pdo \
+    php7-zip \
+    php7-mysqli \
+    php7-bcmath \
+    php7-gd \
+    php7-pdo_mysql \
+    php7-gettext \
+    php7-xmlreader \
+    php7-xmlrpc \
+    php7-bz2 \
+    php7-iconv \
     php7-curl \
     php7-session \
     php7-fpm \
@@ -44,7 +44,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     php7-xml \
     php7-xsl \
     php7-phar php7-xmlwriter php7-tokenizer php7-exif
-    
+
 RUN apk add \
   bash shadow nginx ca-certificates curl zip && \
   apk add -u musl
@@ -78,3 +78,9 @@ COPY ./artisan.sh /usr/local/bin/artisan
 RUN chmod +x /usr/local/bin/artisan
 
 WORKDIR $INSTALL_DIR
+
+# Add cron job
+ADD ./docker/crontab /etc/cron.d/bot-cron
+RUN chmod 0644 /etc/cron.d/bot-cron \
+    && crontab /etc/cron.d/bot-cron
+RUN crond -f -L /dev/stdout &
