@@ -19,11 +19,13 @@ RUN apk add --update \
 RUN chsh -s /bin/bash www-data
 
 COPY ./ $INSTALL_DIR
-#COPY ./.env.example $INSTALL_DIR/.env
-
-#RUN cd $INSTALL_DIR && composer install && php artisan key:generate
 
 COPY ./artisan.sh /usr/local/bin/artisan
 RUN chmod +x /usr/local/bin/artisan
 
 WORKDIR $INSTALL_DIR
+
+# Add cron job
+ADD ./docker/crontab /etc/cron.d/bot-cron
+RUN chmod 0644 /etc/cron.d/bot-cron \
+    && crontab -u www-data /etc/cron.d/bot-cron
