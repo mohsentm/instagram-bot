@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+
     ];
 
     /**
@@ -25,8 +25,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
-//         $schedule->command('bot:wakeup')
-//                  ->everyMinute();
+         $schedule->command('bot:wakeup')
+                  ->everyMinute();
     }
 
     /**
