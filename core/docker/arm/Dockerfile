@@ -83,3 +83,4 @@ WORKDIR $INSTALL_DIR
 ADD ./docker/crontab /etc/cron.d/bot-cron
 RUN chmod 0644 /etc/cron.d/bot-cron \
     && crontab /etc/cron.d/bot-cron
+RUN crond -f -L /dev/stdout &

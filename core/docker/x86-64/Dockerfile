@@ -14,7 +14,8 @@ COPY ./docker/x86-64/nginx.conf /etc/nginx/conf.d/default.conf
 RUN apk add --update \
    ffmpeg \
    php7-fileinfo \
-   php7-exif;
+   php7-exif \
+   dcron;
 
 RUN chsh -s /bin/bash www-data
 
@@ -29,3 +30,4 @@ WORKDIR $INSTALL_DIR
 ADD ./docker/crontab /etc/cron.d/bot-cron
 RUN chmod 0644 /etc/cron.d/bot-cron \
     && crontab /etc/cron.d/bot-cron
+RUN crond -f -L /dev/stdout &
