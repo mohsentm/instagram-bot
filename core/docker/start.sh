@@ -35,6 +35,6 @@ crond -f -L /dev/stdout &
 
 supervisorctl reread
 supervisorctl update
-supervisorctl start bot-worker:*
+supervisorctl start all
 
 /run.sh

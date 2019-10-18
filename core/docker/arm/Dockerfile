@@ -73,4 +73,4 @@ ADD ./docker/crontab /etc/cron.d/bot-cron
 RUN chmod 0644 /etc/cron.d/bot-cron \
     && crontab /etc/cron.d/bot-cron
 
-COPY ./docker/supervisord.conf /etc/supervisor/supervisord.conf
+COPY ./docker/supervisord.ini /etc/supervisor.d/supervisord.ini
