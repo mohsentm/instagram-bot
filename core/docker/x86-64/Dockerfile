@@ -32,4 +32,4 @@ RUN chmod 0644 /etc/cron.d/bot-cron \
     && crontab /etc/cron.d/bot-cron
 RUN crond -f -L /dev/stdout &
 
-COPY ./docker/supervisord.conf /etc/supervisord.conf
+COPY ./docker/supervisor/supervisord.conf /etc/supervisord.conf
