@@ -27,9 +27,3 @@ services:
       - "8583:80"
     depends_on:
       - db
-#  front:
-#    image: mohsentm/csms-front:latest
-#    volumes:
-#      - .env.example:/usr/src/app/.env
-#    ports:
-#      - "3000:3000"
