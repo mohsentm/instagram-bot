@@ -16,7 +16,7 @@ class CreateInstagramActionTable extends Migration
         Schema::create('instagram_action', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('account_id')->unsigned();
-            $table->string('action_id');
+            $table->string('action_id')->nullable();
             $table->string('action_type');
             $table->enum('status', ['PENDING', 'DONE']);
             $table->timestamps();

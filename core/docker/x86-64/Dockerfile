@@ -15,7 +15,7 @@ RUN apk add --update \
    ffmpeg \
    php7-fileinfo \
    php7-exif \
-   dcron;
+   dcron supervisor;
 
 RUN chsh -s /bin/bash www-data
 
@@ -31,3 +31,6 @@ ADD ./docker/crontab /etc/cron.d/bot-cron
 RUN chmod 0644 /etc/cron.d/bot-cron \
     && crontab /etc/cron.d/bot-cron
 RUN crond -f -L /dev/stdout &
+
+COPY ./docker/supervisord.ini /etc/supervisor.d/supervisord.ini
+RUN mkdir /var/log/worker
