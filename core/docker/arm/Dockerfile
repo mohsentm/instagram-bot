@@ -43,7 +43,8 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     php7-simplexml \
     php7-xml \
     php7-xsl \
-    php7-phar php7-xmlwriter php7-tokenizer php7-exif
+    php7-phar php7-xmlwriter php7-tokenizer php7-exif php7-fileinfo \
+    dcron ffmpeg
 
 RUN apk add \
   bash shadow nginx ca-certificates curl zip && \
