@@ -72,3 +72,5 @@ WORKDIR $INSTALL_DIR
 ADD ./docker/crontab /etc/cron.d/bot-cron
 RUN chmod 0644 /etc/cron.d/bot-cron \
     && crontab /etc/cron.d/bot-cron
+
+COPY ./docker/supervisord.conf /etc/supervisord.conf
