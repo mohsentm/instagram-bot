@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.3'
 services:
   web:
     container_name: arm-instabot
@@ -12,13 +12,11 @@ services:
       - db
       - redis
     volumes:
-      - ./:/var/www/html
-    env_file:
-      - .env.example
+      - ./core:/var/www/html
   db:
     image: hypriot/rpi-mysql
     env_file:
-      - .env.example
+      - ./core/.env.example
   redis:
     image: arm32v6/redis:5.0.5-alpine
   phpmyadmin:
