@@ -33,3 +33,4 @@ RUN chmod 0644 /etc/cron.d/bot-cron \
 RUN crond -f -L /dev/stdout &
 
 COPY ./docker/supervisord.ini /etc/supervisor.d/supervisord.ini
+RUN mkdir /etc/log/worker
