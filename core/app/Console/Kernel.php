@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
     {
 
          $schedule->command('bot:wakeup')
-                  ->everyMinute();
+                  ->everyFiveMinutes();
     }
 
     /**
