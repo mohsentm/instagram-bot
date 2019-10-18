@@ -47,9 +47,8 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
     dcron ffmpeg
 
 RUN apk add \
-  bash shadow nginx ca-certificates curl zip && \
+  bash shadow nginx ca-certificates curl zip supervisor && \
   apk add -u musl
-#  mkdir -p /etc/nginx/conf.d
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer

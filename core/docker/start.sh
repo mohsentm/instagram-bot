@@ -33,4 +33,8 @@ fi
 #run the crontab
 crond -f -L /dev/stdout &
 
+supervisorctl reread
+supervisorctl update
+supervisorctl start bot-worker:*
+
 /run.sh
