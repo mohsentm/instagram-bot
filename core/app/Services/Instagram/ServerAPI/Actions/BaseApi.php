@@ -15,7 +15,7 @@ abstract class BaseApi
 
     public function __construct()
     {
-        $this->api = new API(true, true);
+        $this->api = new API();
     }
 
     public function getUsername(): string
