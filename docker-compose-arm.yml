@@ -21,9 +21,3 @@ services:
       - ./core/.env.example
   redis:
     image: arm32v6/redis:5.0.5-alpine
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - "8583:80"
-    depends_on:
-      - db
