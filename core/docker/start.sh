@@ -33,6 +33,8 @@ fi
 #run the crontab
 crond -f -L /dev/stdout &
 
+#run supervisord
+supervisord
 supervisorctl reread
 supervisorctl update
 supervisorctl start all
